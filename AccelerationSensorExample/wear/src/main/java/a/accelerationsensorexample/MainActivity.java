@@ -11,11 +11,15 @@ import android.support.wearable.view.WatchViewStub;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+
+// This example shows how to use acceleration and gyroscope sensors.
+
+
 public class MainActivity extends Activity implements SensorEventListener {
 
-    private TextView mTextView, X, Y, Z, orientationText;
+    private TextView mTextView, X, Y, Z, orientationText, gyrox, gyroy, gyroz;
     private SensorManager senSensorManager;
-    private Sensor senAccelerometer;
+    private Sensor senAccelerometer, senGyroscope;
     boolean youmaypass = false;
 
     @Override
@@ -24,10 +28,15 @@ public class MainActivity extends Activity implements SensorEventListener {
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        // Define sensor type
+        // Define sensor types
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        senGyroscope = senSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+
         senSensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
+        senSensorManager.registerListener(this, senGyroscope, senSensorManager.SENSOR_DELAY_NORMAL);
+
+
 
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
@@ -37,6 +46,10 @@ public class MainActivity extends Activity implements SensorEventListener {
                 X = (TextView) stub.findViewById(R.id.textViewX);
                 Y = (TextView) stub.findViewById(R.id.textViewY);
                 Z = (TextView) stub.findViewById(R.id.textViewZ);
+                gyrox = (TextView) stub.findViewById(R.id.textViewGyroX);
+                gyroy = (TextView) stub.findViewById(R.id.textViewGyroY);
+                gyroz = (TextView) stub.findViewById(R.id.textViewGyroZ);
+
                 orientationText = (TextView) stub.findViewById(R.id.textView4);
                 youmaypass = true;
             }
@@ -49,6 +62,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     // The program goes here everytime the sensor values change
     @Override
     public void onSensorChanged(SensorEvent event) {
+        // Acceleration sensor measures the acceleration applied to the device, including the force of gravity. The data is in m/s^2.
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && youmaypass==true) {
             float[] values = event.values;
             // Movement
@@ -74,7 +88,19 @@ public class MainActivity extends Activity implements SensorEventListener {
             else
                 orientationText.setText("");
         }
+
+        // Gyroscope shows the device's rotation speed around its XYZ axis, data is in rad/s.
+        else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE && youmaypass == true) {
+            float axisX = event.values[0];
+            float axisY = event.values[1];
+            float axisZ = event.values[2];
+
+            gyrox.setText(String.format("%.5f", axisX));
+            gyroy.setText(String.format("%.5f", axisY));
+            gyroz.setText(String.format("%.5f", axisZ));
+        }
     }
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {

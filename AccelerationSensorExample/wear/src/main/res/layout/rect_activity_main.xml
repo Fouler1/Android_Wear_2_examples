@@ -1,51 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context="a.accelerationsensorexample.MainActivity"
     tools:deviceIds="wear_square">
+
+    <TextView
+        android:id="@+id/textViewAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acceleration:" />
+
+    <TextView
+        android:id="@+id/textViewGyro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_toRightOf="@id/textViewAcc"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:text="Gyroscope:" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textViewAcc"
         android:text="X: " />
 
     <TextView
         android:id="@+id/textViewX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textView"
+        android:layout_below="@id/textViewAcc"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textViewGyroX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewGyro"
+        android:layout_alignParentRight="true"
         android:text="" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
         android:text="Y: " />
 
     <TextView
         android:id="@+id/textViewY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textView2"
+        android:layout_below="@id/textViewX"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textViewGyroY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewGyroX"
+        android:layout_alignParentRight="true"
         android:text="" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
         android:text="Z: " />
 
     <TextView
         android:id="@+id/textViewZ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textView3"
+        android:layout_below="@id/textViewY"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textViewGyroZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewGyroY"
+        android:layout_alignParentRight="true"
         android:text="" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
         android:text="" />
-</LinearLayout>
+</RelativeLayout>

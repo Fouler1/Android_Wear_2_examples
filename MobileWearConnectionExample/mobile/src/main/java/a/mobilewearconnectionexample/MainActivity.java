@@ -93,7 +93,8 @@ public class MainActivity extends Activity implements
         public void run() {
             NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes(googleClient).await();
             for (Node node : nodes.getNodes()) {
-                MessageApi.SendMessageResult result = Wearable.MessageApi.sendMessage(googleClient, node.getId(), path, message.getBytes()).await();
+                MessageApi.SendMessageResult result = Wearable.MessageApi.sendMessage(googleClient, node.getId(),
+                        path, message.getBytes()).await();
                 if (result.getStatus().isSuccess()) {
                     Log.v("myTag", "Message: {" + message + "} sent to: " + node.getDisplayName());
                 }

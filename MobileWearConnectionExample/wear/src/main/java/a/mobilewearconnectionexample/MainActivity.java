@@ -17,6 +17,11 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.os.Vibrator;
 
+
+// This application showcases using the data layer in sending data between connected mobile and wearable devices.
+// The mobile screen has an editable textfield and when the button is pressed, the text is displayed on the wear screen.
+
+
 public class MainActivity extends Activity {
 
     private TextView mTextView, textview;
