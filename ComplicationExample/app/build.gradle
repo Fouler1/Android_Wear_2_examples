@@ -2,14 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "a.mobilewearconnectionexample"
+        applicationId "a.complicationexample"
         minSdkVersion 25
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -21,7 +20,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.android.support:wearable:2.0.1'
+    compile 'com.google.android.support:wearable:2.0.2'
     compile 'com.google.android.gms:play-services-wearable:10.2.6'
 }
-
