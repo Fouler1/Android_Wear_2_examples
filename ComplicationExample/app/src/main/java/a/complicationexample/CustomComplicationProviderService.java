@@ -11,9 +11,7 @@ import android.util.Log;
 
 import java.util.Locale;
 
-/**
- * Example watch face complication data provider provides a number that can be incremented on tap.
- */
+
 public class CustomComplicationProviderService extends ComplicationProviderService {
 
     private static final String TAG = "ComplicationProvider";
@@ -46,14 +44,8 @@ public class CustomComplicationProviderService extends ComplicationProviderServi
             int complicationId, int dataType, ComplicationManager complicationManager) {
         Log.d(TAG, "onComplicationUpdate() id: " + complicationId);
 
-        // Used to create a unique key to use with SharedPreferences for this complication.
-        //ComponentName thisProvider = new ComponentName(this, getClass());
-
-
-
         MainActivity mainObject = new MainActivity();
-
-        String numberText = mainObject.getMessage();
+        String complicationText = mainObject.getMessage();
 
         ComplicationData complicationData = null;
 
@@ -61,25 +53,22 @@ public class CustomComplicationProviderService extends ComplicationProviderServi
             case ComplicationData.TYPE_SHORT_TEXT:
                 complicationData =
                         new ComplicationData.Builder(ComplicationData.TYPE_SHORT_TEXT)
-                                .setShortText(ComplicationText.plainText(numberText))
-                                //.setTapAction(complicationPendingIntent)
+                                .setShortText(ComplicationText.plainText(complicationText))
                                 .build();
                 break;
             case ComplicationData.TYPE_LONG_TEXT:
                 complicationData =
                         new ComplicationData.Builder(ComplicationData.TYPE_LONG_TEXT)
-                                .setLongText(ComplicationText.plainText("Number: " + numberText))
-                                //.setTapAction(complicationPendingIntent)
+                                .setLongText(ComplicationText.plainText(complicationText))
                                 .build();
                 break;
             case ComplicationData.TYPE_RANGED_VALUE:
                 complicationData =
                         new ComplicationData.Builder(ComplicationData.TYPE_RANGED_VALUE)
-                                .setValue(15)
+                                .setValue(0)
                                 .setMinValue(0)
                                 .setMaxValue(20)
-                                .setShortText(ComplicationText.plainText(numberText))
-                                //.setTapAction(complicationPendingIntent)
+                                .setShortText(ComplicationText.plainText(complicationText))
                                 .build();
                 break;
             default:

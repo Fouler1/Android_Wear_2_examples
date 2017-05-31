@@ -11,19 +11,17 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter a number to show in the complication" />
+        android:text="Enter text to show in the complication" />
 
     <EditText
         android:id="@+id/numberfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
         android:text="" />
 
     <Button
         android:id="@+id/sendbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send"
-        android:onClick="startUpdate"/>
+        android:text="Send"/>
 </LinearLayout>
