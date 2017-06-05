@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ims.fhj.at.testnotification.MainActivity"
+    tools:deviceIds="wear_square"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_square" />
+
+    <Button
+        android:id="@+id/bNotify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="notifyMe"
+        android:text="Notify Me!"
+        android:layout_weight="0.10" />
+
+    <Button
+        android:id="@+id/bmusic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.20"
+        android:onClick="stopMusic"
+        android:text="Stop music" />
+</LinearLayout>
