@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
     Ringtone mRingtone;
     public int notificationId = 1;
     MediaPlayer mediaPlayer = new MediaPlayer();
+    Ringtone r ;
     Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,13 @@ public class MainActivity extends Activity {
             }
         });
 
+        try {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            r = RingtoneManager.getRingtone(getApplicationContext(), notification);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -55,9 +62,10 @@ public class MainActivity extends Activity {
                 NotificationManagerCompat.from(this);
         notificationManager.notify(notificationId, notificationBuilder.build());
         Log.d("Notify","Sent");
-        Context context = this;
-        mediaPlayer = MediaPlayer.create(context, R.raw.num1);
-        mediaPlayer.start();
+      //  Context context = this;
+        r.play();
+     //   mediaPlayer = MediaPlayer.create(context, R.raw.num1);
+     //   mediaPlayer.start();
 
 
     }
@@ -71,7 +79,8 @@ public class MainActivity extends Activity {
     }
     public void stopMusic(View view)
     {
-        mediaPlayer.stop();
+        r.stop();
+      //  mediaPlayer.stop();
         Log.d("music","Stopped");
     }
 }
