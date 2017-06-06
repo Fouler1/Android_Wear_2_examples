@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -24,6 +25,7 @@ public class MainActivity extends Activity {
     private TextView mTextView;
     Ringtone mRingtone;
     public int notificationId = 1;
+    MediaPlayer mediaPlayer = new MediaPlayer();
     Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +40,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        if(notification == null) {
-            // alert is null, using backup
-            Log.d("notification","notification object is nulll");
-            notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        }
-
-        mRingtone = RingtoneManager.getRingtone(getApplicationContext(), notification);
 
 
 
@@ -61,19 +55,23 @@ public class MainActivity extends Activity {
                 NotificationManagerCompat.from(this);
         notificationManager.notify(notificationId, notificationBuilder.build());
         Log.d("Notify","Sent");
-        alarmplay();
+        Context context = this;
+        mediaPlayer = MediaPlayer.create(context, R.raw.num1);
+        mediaPlayer.start();
+
+
     }
 
     public void alarmplay()
     {
 
-        mRingtone.play();
+
         Log.d("music","playing");
 
     }
     public void stopMusic(View view)
     {
-        mRingtone.stop();
+        mediaPlayer.stop();
         Log.d("music","Stopped");
     }
 }
