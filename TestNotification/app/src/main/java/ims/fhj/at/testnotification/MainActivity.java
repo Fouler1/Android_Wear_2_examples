@@ -1,16 +1,8 @@
 package ims.fhj.at.testnotification;
 
 import android.app.Activity;
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -18,16 +10,17 @@ import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
 
-    private TextView mTextView;
-    Ringtone mRingtone;
+    private TextView mTextView, mTextSpeaker;
     public int notificationId = 1;
     MediaPlayer mediaPlayer = new MediaPlayer();
-    Ringtone r ;
     Context mContext;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,17 +30,13 @@ public class MainActivity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
-
             }
         });
 
-        try {
-            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            r = RingtoneManager.getRingtone(getApplicationContext(), notification);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+
+
 
 
     }
@@ -62,25 +51,22 @@ public class MainActivity extends Activity {
                 NotificationManagerCompat.from(this);
         notificationManager.notify(notificationId, notificationBuilder.build());
         Log.d("Notify","Sent");
-      //  Context context = this;
-        r.play();
-     //   mediaPlayer = MediaPlayer.create(context, R.raw.num1);
-     //   mediaPlayer.start();
+        Context context = this;
+        Toast.makeText(context, "Notification Received", Toast.LENGTH_SHORT).show();
 
-
-    }
-
-    public void alarmplay()
-    {
-
-
-        Log.d("music","playing");
+        if(!mediaPlayer.isPlaying())
+        {
+            mediaPlayer = MediaPlayer.create(context, R.raw.num1);
+            mediaPlayer.start();
+            Log.d("music","Started");
+        }
 
     }
+
     public void stopMusic(View view)
     {
-        r.stop();
-      //  mediaPlayer.stop();
+
+        mediaPlayer.stop();
         Log.d("music","Stopped");
     }
 }

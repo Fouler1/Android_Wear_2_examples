@@ -29,4 +29,5 @@
         android:layout_weight="0.20"
         android:onClick="stopMusic"
         android:text="Stop music" />
+
 </LinearLayout>
