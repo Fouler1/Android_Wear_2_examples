@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
-            if (spokenText.contains("rate")) {
+            if (spokenText.contains("tuoli")) {
                 GetHeartRate();
                 //Speechformer.setText(storedValue);
             }
