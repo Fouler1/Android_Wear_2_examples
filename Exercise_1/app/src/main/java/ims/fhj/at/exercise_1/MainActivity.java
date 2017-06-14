@@ -40,6 +40,21 @@ public class MainActivity extends Activity implements SensorEventListener {
                 Speechformer = (TextView) stub.findViewById(R.id.tv_heart_rate);
             }
         });
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.BODY_SENSORS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.BODY_SENSORS)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.BODY_SENSORS},
+                        MY_PERMISSIONS_REQUEST_BODY_SENSORS);
+            }
+        }
     }
 
 
@@ -80,20 +95,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     public void GetHeartRate()
     {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.BODY_SENSORS)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.BODY_SENSORS)) {
-
-            } else {
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.BODY_SENSORS},
-                        MY_PERMISSIONS_REQUEST_BODY_SENSORS);
-            }
-        }
 
         SensorManager mSensorManager = ((SensorManager)getSystemService(SENSOR_SERVICE));
         Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
