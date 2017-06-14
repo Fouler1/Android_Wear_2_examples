@@ -40,6 +40,21 @@ public class MainActivity extends Activity implements SensorEventListener {
                 Speechformer = (TextView) stub.findViewById(R.id.tv_heart_rate);
             }
         });
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.BODY_SENSORS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.BODY_SENSORS)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.BODY_SENSORS},
+                        MY_PERMISSIONS_REQUEST_BODY_SENSORS);
+            }
+        }
     }
 
 
@@ -65,7 +80,11 @@ public class MainActivity extends Activity implements SensorEventListener {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
+<<<<<<< HEAD
             if (spokenText.contains("tuoli")) {
+=======
+            if (spokenText.contains("play")) {
+>>>>>>> origin/master
                 GetHeartRate();
                 //Speechformer.setText(storedValue);
             }
@@ -80,23 +99,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     public void GetHeartRate()
     {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.BODY_SENSORS)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.BODY_SENSORS)) {
-
-            } else {
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.BODY_SENSORS},
-                        MY_PERMISSIONS_REQUEST_BODY_SENSORS);
-            }
-        }
 
         SensorManager mSensorManager = ((SensorManager)getSystemService(SENSOR_SERVICE));
-        Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
+        Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         mSensorManager.registerListener(this, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
@@ -105,7 +111,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        if (sensorEvent.sensor.getType() == Sensor.TYPE_HEART_RATE) {
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             String msg = "" + (int)sensorEvent.values[0];
             storedValue = msg;
             Speechformer.setText(storedValue);
