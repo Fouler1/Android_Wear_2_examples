@@ -59,6 +59,10 @@ public class MainActivity extends Activity {
             if (spokenText == compare) {
                 Speechformer.setText(spokenText);
             }
+            else
+            {
+                Speechformer.setText("Wrong Password");
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
