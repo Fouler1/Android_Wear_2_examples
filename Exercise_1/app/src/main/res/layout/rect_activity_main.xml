@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ims.fhj.at.exercise_1.MainActivity"
+    tools:deviceIds="wear_square"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Give Password"
+        android:textAppearance="@style/TextAppearance.WearDiag.Title"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/bSpeak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Clicked"
+        android:text="Password" />
+
+    <TextView
+        android:id="@+id/tv_heart_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.09"
+        android:text="Heart rate"
+        android:textAppearance="@style/TextAppearance.WearDiag.Title" />
+</LinearLayout>
