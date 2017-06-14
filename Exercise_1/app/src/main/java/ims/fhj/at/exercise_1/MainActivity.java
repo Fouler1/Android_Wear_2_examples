@@ -80,11 +80,8 @@ public class MainActivity extends Activity implements SensorEventListener {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
-<<<<<<< HEAD
-            if (spokenText.contains("tuoli")) {
-=======
-            if (spokenText.contains("play")) {
->>>>>>> origin/master
+
+            if (spokenText.contains("Play")) {
                 GetHeartRate();
                 //Speechformer.setText(storedValue);
             }
@@ -102,7 +99,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
         SensorManager mSensorManager = ((SensorManager)getSystemService(SENSOR_SERVICE));
-        Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
         mSensorManager.registerListener(this, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
@@ -111,7 +108,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_HEART_RATE) {
             String msg = "" + (int)sensorEvent.values[0];
             storedValue = msg;
             Speechformer.setText(storedValue);
