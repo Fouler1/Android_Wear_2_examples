@@ -1,9 +1,17 @@
 package ims.fhj.at.exercise_1;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +20,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SensorEventListener {
 
     private TextView mTextView;
     TextView Speechformer;
     final static int SPEECH_REQUEST_CODE = 1;
-    String compare = "aasi";
+    final static int MY_PERMISSIONS_REQUEST_BODY_SENSORS = 2;
+    String storedValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +65,9 @@ public class MainActivity extends Activity {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
-            if (spokenText == compare) {
-                Speechformer.setText(spokenText);
+            if (spokenText.contains("rate")) {
+                GetHeartRate();
+                //Speechformer.setText(storedValue);
             }
             else
             {
@@ -68,8 +78,42 @@ public class MainActivity extends Activity {
     }
 
 
+    public void GetHeartRate()
+    {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.BODY_SENSORS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.BODY_SENSORS)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.BODY_SENSORS},
+                        MY_PERMISSIONS_REQUEST_BODY_SENSORS);
+            }
+        }
+
+        SensorManager mSensorManager = ((SensorManager)getSystemService(SENSOR_SERVICE));
+        Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
+        mSensorManager.registerListener(this, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
 
 
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
 
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_HEART_RATE) {
+            String msg = "" + (int)sensorEvent.values[0];
+            storedValue = msg;
+            Speechformer.setText(storedValue);
+    }
+    }
 
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
 }
