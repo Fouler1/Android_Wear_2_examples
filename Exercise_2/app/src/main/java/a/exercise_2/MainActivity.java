@@ -3,11 +3,13 @@ package a.exercise_2;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    private TextView mTextView;
+    private TextView textviewlatitude1, textviewlatitude, textviewlongitude1, textviewlongitude;
+    private Button notificationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +19,11 @@ public class MainActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
+                textviewlatitude1 = (TextView) stub.findViewById(R.id.latitudetext);
+                textviewlatitude = (TextView) stub.findViewById(R.id.latitude);
+                textviewlongitude1 = (TextView) stub.findViewById(R.id.longitudetext);
+                textviewlongitude = (TextView) stub.findViewById(R.id.longitude);
+                notificationButton = (Button) stub.findViewById(R.id.button);
             }
         });
     }
