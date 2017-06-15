@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -17,17 +20,28 @@ public class MainActivity extends Activity implements
         GoogleApiClient.OnConnectionFailedListener {
 
     GoogleApiClient googleClient;
+    EditText textfield;
+    Button sendbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textfield = (EditText) findViewById(R.id.numberfield);
+        sendbutton = (Button) findViewById(R.id.sendbutton);
 
         googleClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+    }
+
+    public void sendVibrationLength(View view) {
+        String no=textfield.getText().toString();
+
+
+        new SendToDataLayerThread("/data_path", no).start();
     }
 
     @Override
@@ -38,8 +52,7 @@ public class MainActivity extends Activity implements
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        String message = "Data layer connection successful";
-        new SendToDataLayerThread("/data_path", "fuck a you").start();
+        new SendToDataLayerThread("/data_path", "1").start();
     }
 
     @Override
