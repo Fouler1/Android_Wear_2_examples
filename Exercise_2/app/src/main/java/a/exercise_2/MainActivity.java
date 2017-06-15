@@ -42,6 +42,8 @@ public class MainActivity extends Activity implements
             }
         });
 
+        Log.d("onCreate","");
+
         // Making GoogleApiClient which allows us to use API.
         if (mGoogleApiClient == null) {
             Log.d("MgoogleClient", "Was not empty");
@@ -70,9 +72,9 @@ public class MainActivity extends Activity implements
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
             } else {
 
