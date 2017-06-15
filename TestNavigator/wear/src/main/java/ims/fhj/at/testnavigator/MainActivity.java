@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements
         });
         // Making GoogleApiClient which allows us to use API.
         if (mGoogleApiClient == null) {
-        Log.d("MgoogleClient", "Was not empty");
+        Log.d("MgoogleClient", "Was empty");
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -66,9 +66,9 @@ public class MainActivity extends Activity implements
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
             } else {
 
@@ -80,6 +80,7 @@ public class MainActivity extends Activity implements
             return;
         }
         // Here we get our location and print it on the screen.
+        Log.d("GetLastLocation","Starting To ask Location");
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         Log.d("LastLocation","is:" +mLastLocation);
