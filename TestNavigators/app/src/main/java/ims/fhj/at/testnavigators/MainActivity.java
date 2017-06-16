@@ -1,30 +1,32 @@
 package ims.fhj.at.testnavigators;
 
-import android.Manifest;
+
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.wearable.view.WatchViewStub;
 import android.support.v4.app.ActivityCompat;
+import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
+
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
-public class MainActivity extends Activity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
+public class MainActivity extends Activity {
 
-    private static final int MY_PERMISSIONS_REQUEST_USE_GPS = 100;
+    private FusedLocationProviderClient mFusedLocationClient;
     private TextView mTextView, longi, latti;
-    public GoogleApiClient mGoogleApiClient;
     public Location mLastLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,88 +40,37 @@ public class MainActivity extends Activity implements
             }
         });
 
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-
-        }
 
 
-
-
-    }
-
-
-    //onStart we connect to API
-    protected void onStart() {
-        Log.d("Onstart","Connecting to API");
-        mGoogleApiClient.connect();
-        super.onStart();
-    }
-    //onStop we close to connection
-    protected void onStop() {
-        mGoogleApiClient.disconnect();
-        Log.d("onStop","Client disconnected succesfully");
-        super.onStop();
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
-
-            } else {
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_USE_GPS);
-            }
-            Log.d("Permission","Asked");
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        // Here we get our location and print it on the screen.
-        Log.d("GetLastLocation","Starting To ask Location");
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
-        Log.d("LastLocation","is:" +mLastLocation);
-        if (mLastLocation != null) {
-            UpdateUI();
-        }
-    }
-
-    public void UpdateUI()
-    {
-
-        latti.setText(String.valueOf(mLastLocation.getLatitude()));
-        longi.setText(String.valueOf(mLastLocation.getLongitude()));
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        mLastLocation = location;
+                        Log.d("Location is:",""+mLastLocation);
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // ...
+                        }
+                    }
+                });
 
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_USE_GPS: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
-                }
-                return;
-            }
-        }
-    }
+
+
 
 }
