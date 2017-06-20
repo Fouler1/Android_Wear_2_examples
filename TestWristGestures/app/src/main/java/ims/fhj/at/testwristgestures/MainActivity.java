@@ -30,39 +30,16 @@ public class MainActivity extends Activity {
             case KeyEvent.KEYCODE_NAVIGATE_NEXT:
                 // Do something that advances a user View to the next item in an ordered list.
                 gesturebox.setText("Navigate_Next");
-                return moveToNextItem();
+                break;
             case KeyEvent.KEYCODE_NAVIGATE_PREVIOUS:
                 gesturebox.setText("Navigate_Previous");
-                gesturebox.setText("Navigate_Previous");
                 // Do something that advances a user View to the previous item in an ordered list.
-                return moveToPreviousItem();
-            case KeyEvent.KEYCODE_NAVIGATE_IN:
-                gesturebox.setText("Navigate_IN");
-                // Do something that advances a user View to the next item in an ordered list.
-                return moveToPreviousItem();
-            case  KeyEvent.KEYCODE_NAVIGATE_OUT:
-                gesturebox.setText("Navigate_OUT");
-                return moveToPreviousItem();
+                break;
         }
         // If you did not handle it, let it be handled by the next possible element as deemed by the Activity.
         return super.onKeyDown(keyCode, event);
     }
 
-    /** Shows the next item in the custom list. */
-    private boolean moveToNextItem() {
-        boolean handled = false;
-
-        // Return true if handled successfully, otherwise return false.
-        return handled;
-    }
-
-    /** Shows the previous item in the custom list. */
-    private boolean moveToPreviousItem() {
-        boolean handled = false;
-
-        // Return true if handled successfully, otherwise return false.
-        return handled;
-    }
 
 
 

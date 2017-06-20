@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
             if (spokenText.contains("Play")) {
                 GetHeartRate();
-                //Speechformer.setText(storedValue);
+
             }
             else
             {
