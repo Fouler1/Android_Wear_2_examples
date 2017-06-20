@@ -8,32 +8,8 @@
     tools:deviceIds="wear_square">
 
     <TextView
-        android:id="@+id/latitudetext"
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Latitude" />
-
-    <TextView
-        android:id="@+id/latitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="lat" />
-
-    <TextView
-        android:id="@+id/longitudetext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Longitude" />
-
-    <TextView
-        android:id="@+id/longitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="long" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create notification"/>
+        android:text="@string/hello_square" />
 </LinearLayout>
